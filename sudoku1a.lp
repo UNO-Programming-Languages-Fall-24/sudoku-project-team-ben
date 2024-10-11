@@ -10,9 +10,18 @@
 % Your implementation please...
 size(4).
 value(1..4).
-1 { sudoku(X, Y, V) : value(V) } 1 :- size(S), X = 1..S, Y = 1..S.
-:- sudoku(X, Y1, V), sudoku(X, Y2, V), Y1 != Y2.
-:- sudoku(X1, C, V), sudoku(X2, C, V), X1 != X2.
+
+% Ensure every cell (X, Y) has exactly one value V, either from the initial values or chosen by the solver
+1 { sudoku(X, Y, V) : value(V) } 1 :- size(S), X = 1..S, Y = 1..S, not initial(X, Y, _).
+
+% Fix cells that have an initial value
+sudoku(X, Y, V) :- initial(X, Y, V).
+
+% Row constraint: values in each row must be unique
+:- sudoku(X, Y, V), sudoku(X, Y', V), Y != Y'.
+
+% Column constraint: values in each column must be unique
+:- sudoku(X, Y, V), sudoku(X', Y, V), X != X'.
 
 
 
