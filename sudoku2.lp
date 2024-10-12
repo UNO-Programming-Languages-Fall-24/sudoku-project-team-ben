@@ -1,5 +1,3 @@
-
-
 % Sudoku Solver
 %
 % Hints:
@@ -8,10 +6,10 @@
 
 % Your implementation please...
 %Easily edited constraint definitions
-row(1..4).
-col(1..4).
-value(1..4).
-sub(2).
+row(1..9).
+col(1..9).
+value(1..9).
+sub(3).
 
 %Gives every cell one value from V as long as its empty
 { sudoku(X, Y, V) : value(V) } = 1 :- row(X), col(Y), not initial(X, Y, _).
@@ -26,12 +24,9 @@ sudoku(X, Y, V) :- initial(X, Y, V).
 :- sudoku(X, Y, V), sudoku(X', Y, V), X != X'.
 
 %Maps each (x,y) coordinate to a subgrid
-subgrid(X, Y, G) :- sudoku(X, Y, N), sub(S), G = 1+(((X-1)/S)*S+(Y-1)/S).
+subgrid(X, Y, 1+(((X-1)/S)*S+(Y-1)/S)) :- sub(S), row(X), row(Y).
 
 %Ensures subgrid values are unique
-:- subgrid(X, Y, G),
-subgrid(X', Y', G),
-sudoku(X, Y, V),
-sudoku(X', Y', V),
-X != X'; Y != Y'.
+:- subgrid(X, Y, G), subgrid(X', Y', G), sudoku(X, Y, V), sudoku(X', Y', V), X != X', Y != Y'.
 
+#show sudoku/3.
