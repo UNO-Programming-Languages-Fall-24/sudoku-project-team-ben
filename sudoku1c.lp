@@ -1,5 +1,3 @@
-
-
 % Sudoku Solver
 %
 % Hints:
@@ -26,13 +24,9 @@ sudoku(X, Y, V) :- initial(X, Y, V).
 :- sudoku(X, Y, V), sudoku(X', Y, V), X != X'.
 
 %Maps each (x,y) coordinate to a subgrid
-subgrid(X, Y, G) :- sudoku(X, Y, N), sub(S), G = 1+(((X-1)/S)*S+(Y-1)/S).
+subgrid(X, Y, 1+(((X-1)/S)*S+(Y-1)/S)) :- sub(S), row(X), row(Y).
 
 %Ensures subgrid values are unique
-:- subgrid(X, Y, G),
-subgrid(X', Y', G),
-sudoku(X, Y, V),
-sudoku(X', Y', V),
-X != X'; Y != Y'.
+:- subgrid(X, Y, G), subgrid(X', Y', G), sudoku(X, Y, V), sudoku(X', Y', V), X != X', Y != Y'.
 
 #show sudoku/3.
