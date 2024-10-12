@@ -23,7 +23,7 @@ sudoku(X, Y, V) :- initial(X, Y, V).
 %Ensures column values are unique
 :- sudoku(X, Y, V), sudoku(X', Y, V), X != X'.
 
-%Maps each (x,y) coordinate to a subgrid
+%Maps each (X,Y) coordinate to a subgrid
 subgrid(X, Y, 1+(((X-1)/S)*S+(Y-1)/S)) :- sub(S), row(X), row(Y).
 
 %Ensures subgrid values are unique
